@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carlos Hernandez — iOS Developer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@400;600;800&display=swap');
+        
+        :root {
+            --bg: #fafafa;
+            --text: #1a1a1a;
+            --text-light: #666;
+            --accent: #ff3366;
+            --accent-light: #fff0f3;
+            --yellow: #ffd700;
+            --blue: #4a9eff;
+            --green: #00cc88;
+            --border: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        ::selection {
+            background: var(--accent);
+            color: white;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(250, 250, 250, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            font-weight: 600;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Hero Section - DISTINTIVO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+        }
+        
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .hero-text h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .text-highlight {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .badge-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+        
+        .badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            border: 2px solid var(--text);
+        }
+        
+        .badge-ios {
+            background: var(--text);
+            color: white;
+        }
+        
+        .badge-remote {
+            border-color: var(--green);
+            color: var(--green);
+        }
+        
+        .badge-available {
+            background: var(--yellow);
+            border-color: var(--yellow);
+            color: var(--text);
+            animation: pulse-badge 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1.2rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-family: 'Manrope', sans-serif;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 20px rgba(255, 51, 102, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 51, 102, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--text);
+            border: 2px solid var(--text);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--text);
+            color: white;
+        }
+        
+        /* Hero Visual - CREATIVO */
+        .hero-visual {
+            position: relative;
+            height: 500px;
+        }
+        
+        .floating-card {
+            position: absolute;
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+        
+        .card-1 {
+            top: 50px;
+            left: 0;
+            animation-delay: 0s;
+        }
+        
+        .card-2 {
+            top: 200px;
+            right: 50px;
+            animation-delay: 1s;
+        }
+        
+        .card-3 {
+            bottom: 100px;
+            left: 50px;
+            animation-delay: 2s;
+        }
+        
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .card-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text);
+        }
+        
+        /* Stats Bar - IMPACTANTE */
+        .stats-bar {
+            background: var(--text);
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            display: block;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+        
+        /* Why Me Section - DIFERENTE */
+        .why-me {
+            padding: 8rem 0;
+            background: linear-gradient(180deg, var(--bg) 0%, var(--accent-light) 100%);
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 5rem;
+        }
+        
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+        }
+        
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+        }
+        
+        .why-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .why-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 30px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .why-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+        
+        .why-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .why-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .why-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+        
+        /* Projects Section - SHOWTIME */
+        .projects {
+            padding: 8rem 0;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 0;
+        }
+        
+        .project-content {
+            padding: 4rem;
+        }
+        
+        .project-label {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: var(--accent-light);
+            color: var(--accent);
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .project-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        
+        .project-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        
+        .tech-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg);
+            border-radius: 50px;
+            color: var(--text);
+            font-weight: 600;
+        }
+        
+        .project-visual {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--blue) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            color: white;
+            opacity: 0.9;
+        }
+        
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        /* Skills - VISUAL */
+        .skills {
+            padding: 8rem 0;
+            background: var(--text);
+            color: white;
+        }
+        
+        .skills .section-label {
+            color: var(--yellow);
+        }
+        
+        .skills .section-title,
+        .skills .section-subtitle {
+            color: white;
+        }
+        
+        .skills .section-subtitle {
+            opacity: 0.8;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+        
+        .skill-group h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--yellow);
+        }
+        
+        .skill-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .skill-item {
+            font-size: 1rem;
+            opacity: 0.9;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .skill-item::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--yellow);
+        }
+        
+        /* Contact - LLAMATIVO */
+        .contact {
+            padding: 8rem 0;
+            background: var(--accent);
+            color: white;
+            text-align: center;
+        }
+        
+        .contact h2 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+        
+        .contact-subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .contact-btn {
+            padding: 1.5rem 3rem;
+            background: white;
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .contact-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            background: var(--text);
+            color: white;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.6;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .hero-visual {
+                display: none;
+            }
+            
+            .why-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-visual {
+                min-height: 300px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-content {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">CH</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <h1>
+                        Senior iOS Developer<br>
+                        building <span class="text-highlight">scalable systems</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        6 years managing 100+ apps in multi-repo architecture. 
+                        Swift, SwiftUI, React Native. Now exploring AI in mobile development.
+                    </p>
+                    <div class="badge-group">
+                        <span class="badge badge-ios">iOS Expert</span>
+                        <span class="badge badge-remote">Remote (EU)</span>
+                        <span class="badge badge-available">Available Now</span>
+                    </div>
+                    <div class="hero-cta">
+                        <a href="#contact" class="btn btn-primary">Let's Talk</a>
+                        <a href="https://linkedin.com/in/carlos-hernandez-prieto" class="btn btn-secondary" target="_blank">LinkedIn</a>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="floating-card card-1">
+                        <div class="card-icon">📱</div>
+                        <div class="card-title">Apps Managed</div>
+                        <div class="card-value">100+</div>
+                    </div>
+                    <div class="floating-card card-2">
+                        <div class="card-icon">🎨</div>
+                        <div class="card-title">Components Built</div>
+                        <div class="card-value">30+</div>
+                    </div>
+                    <div class="floating-card card-3">
+                        <div class="card-icon">⚡</div>
+                        <div class="card-title">Years Experience</div>
+                        <div class="card-value">6</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div>
+                    <span class="stat-number">6</span>
+                    <span class="stat-label">Years Building iOS</span>
+                </div>
+                <div>
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Apps in Production</span>
+                </div>
+                <div>
+                    <span class="stat-number">30+</span>
+                    <span class="stat-label">SwiftUI Components</span>
+                </div>
+                <div>
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Core Products</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Me -->
+    <section class="why-me" id="about">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">What Makes Me Different</div>
+                <h2 class="section-title">Not just another iOS dev</h2>
+                <p class="section-subtitle">
+                    I've spent 6 years as the sole iOS developer managing a complex multi-repo system. 
+                    That taught me things you can't learn in a team of 20.
+                </p>
+            </div>
+            
+            <div class="why-cards">
+                <div class="why-card">
+                    <div class="why-icon">🏗️</div>
+                    <h3>Architecture at Scale</h3>
+                    <p>
+                        Managed 100+ white-label app variants from a shared core. 
+                        I understand modular architecture, dependency management, 
+                        and building systems that scale without breaking.
+                    </p>
+                </div>
+                
+                <div class="why-card">
+                    <div class="why-icon">🎯</div>
+                    <h3>Autonomous Decision Maker</h3>
+                    <p>
+                        For 6 years, every iOS decision was mine: architecture, 
+                        tech stack, SDKs, testing strategy. I migrated UIKit to SwiftUI, 
+                        integrated AR and hardware SDKs, all on my own initiative.
+                    </p>
+                </div>
+                
+                <div class="why-card">
+                    <div class="why-icon">⚡</div>
+                    <h3>Fast Adapter</h3>
+                    <p>
+                        Learned React Native in parallel to iOS work during 1.5-year migration. 
+                        Recently adopted AI workflows (Claude, Copilot) to optimize productivity. 
+                        I don't wait for training—I figure things out.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Featured Work</div>
+                <h2 class="section-title">Recent Projects</h2>
+            </div>
+            
+            <!-- Padel App -->
+            <div class="project-card">
+                <div class="project-grid">
+                    <div class="project-content">
+                        <span class="project-label">Side Project • 2024</span>
+                        <h3 class="project-title">Padel Booking App</h3>
+                        <p class="project-description">
+                            Built an entire padel court booking system using AI-assisted development (Claude). 
+                            Features real-time reservations, user management, and payment integration. 
+                            Live demo available with test credentials.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">SwiftUI</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">AI-Assisted</span>
+                            <span class="tech-tag">Real-time Data</span>
+                        </div>
+                        <div style="margin: 1.5rem 0; padding: 1.5rem; background: var(--accent-light); border-radius: 15px; border: 2px dashed var(--accent);">
+                            <p style="font-weight: 600; margin-bottom: 1rem; color: var(--accent);">🎾 Try Live Demo:</p>
+                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; line-height: 1.8;">
+                                <div><strong>URL:</strong> <a href="https://rio-tamesis-app.vercel.app" target="_blank" style="color: var(--accent); text-decoration: underline;">rio-tamesis-app.vercel.app</a></div>
+                                <div><strong>User:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5135343c3e0e242234231123383e25303c342238227f302121">[email&#160;protected]</a></div>
+                                <div><strong>Password:</strong> Tamesis_123?</div>
+                            </div>
+                        </div>
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <span>🚀</span>
+                                <span>In Production</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>🤖</span>
+                                <span>Built with AI</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>🎮</span>
+                                <span>Live Demo Available</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-visual">
+                        🎾
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Eventscase Ecosystem -->
+            <div class="project-card">
+                <div class="project-grid">
+                    <div class="project-content">
+                        <span class="project-label">Professional • 2019-2025</span>
+                        <h3 class="project-title">Multi-Repo iOS Ecosystem</h3>
+                        <p class="project-description">
+                            Sole owner of Eventscase's iOS infrastructure supporting 3 core apps 
+                            (main app, Check-in, Kiosk) and 100+ white-label client variants. 
+                            Migrated entire UIKit codebase to SwiftUI while maintaining production stability.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Swift</span>
+                            <span class="tech-tag">SwiftUI</span>
+                            <span class="tech-tag">Multi-Repo</span>
+                            <span class="tech-tag">MVVM</span>
+                            <span class="tech-tag">Bitbucket</span>
+                        </div>
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <span>📱</span>
+                                <span>100+ Apps</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>⚙️</span>
+                                <span>30+ Components</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>🎯</span>
+                                <span>Zero Downtime Migration</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-visual">
+                        🏗️
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Technical Arsenal</div>
+                <h2 class="section-title">What I Bring to the Table</h2>
+                <p class="section-subtitle">
+                    6 years of iOS development. Proven experience with architecture, 
+                    cross-platform, and emerging technologies.
+                </p>
+            </div>
+            
+            <div class="skills-grid">
+                <div class="skill-group">
+                    <h3>iOS Development</h3>
+                    <div class="skill-list">
+                        <div class="skill-item">Swift (6 years)</div>
+                        <div class="skill-item">SwiftUI & UIKit</div>
+                        <div class="skill-item">Async/Await, Combine</div>
+                        <div class="skill-item">XCTest, XCUITest</div>
+                        <div class="skill-item">MVVM, SOLID, Hexagonal</div>
+                        <div class="skill-item">Component Libraries</div>
+                    </div>
+                </div>
+                
+                <div class="skill-group">
+                    <h3>Architecture & Scale</h3>
+                    <div class="skill-list">
+                        <div class="skill-item">Multi-Repo Systems</div>
+                        <div class="skill-item">White-Label Architecture</div>
+                        <div class="skill-item">Modularization</div>
+                        <div class="skill-item">Dependency Injection</div>
+                        <div class="skill-item">Legacy Modernization</div>
+                        <div class="skill-item">Git Strategies</div>
+                    </div>
+                </div>
+                
+                <div class="skill-group">
+                    <h3>Cross-Platform & More</h3>
+                    <div class="skill-list">
+                        <div class="skill-item">React Native (1.5 years)</div>
+                        <div class="skill-item">Unity + EasyAR (AR/VR)</div>
+                        <div class="skill-item">Firebase, Realm, SQL</div>
+                        <div class="skill-item">CI/CD, Bitbucket</div>
+                        <div class="skill-item">AI Tools (Claude, Copilot)</div>
+                        <div class="skill-item">Hardware SDKs</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Ready to work together?</h2>
+            <p class="contact-subtitle">
+                I'm currently looking for remote iOS or React Native roles across Europe. 
+                Let's build something great.
+            </p>
+            <div class="contact-methods">
+                <a href="/cdn-cgi/l/email-protection#294a485b45465a111c074a4159694e44484045074a4644" class="contact-btn">Send Email</a>
+                <a href="https://linkedin.com/in/carlos-hernandez-prieto" class="contact-btn" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Carlos Hernandez. Designed & Built with care.</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', f
