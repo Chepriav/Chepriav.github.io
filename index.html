@@ -635,6 +635,61 @@ Copiar
                 padding: 2rem;
             }
         }
+
+        /* --- ESTILOS PARA EL FORMULARIO --- */
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            background: white;
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            color: var(--text);
+            font-weight: 700;
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .contact-form textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        .contact-form .btn-primary {
+            width: 100%;
+            border: none;
+            cursor: pointer;
+        }
+
+        .other-links {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -1072,10 +1127,10 @@ Copiar
                         <label for="message">YOUR MESSAGE</label>
                         <textarea name="message" id="message" placeholder="Hi Carlos, I'd like to discuss..." required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
                     
                     <div class="other-links">
-                        <a href="https://linkedin.com/in/carlos-hernandez-prieto" target="_blank" style="color: var(--text-light); text-decoration: none; font-size: 0.9rem; font-weight: 600;">LinkedIn ↗</a>
+                        <a href="https://linkedin.com/in/carlos-hernandez-prieto" target="_blank" style="color: white; text-decoration: none; font-size: 0.9rem; font-weight: 600; opacity: 0.8;">LinkedIn ↗</a>
                     </div>
                 </form>
             </div>
