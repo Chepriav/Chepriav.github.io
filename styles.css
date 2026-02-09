@@ -104,10 +104,13 @@ nav .container {
 .hero .container {
     position: relative;
     z-index: 1;
+    pointer-events: none;
 }
 
-.hero-content {
-    max-width: 700px;
+.hero-content a,
+.hero-content button,
+.hero-content .badge {
+    pointer-events: auto;
 }
 
 .hero-content h1 {
